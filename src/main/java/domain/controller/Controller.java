@@ -12,23 +12,28 @@ public class Controller {
     private final List<Menu> menus = MenuRepository.menus();
 
     public boolean run() throws IllegalAccessException {
-        OutputView.printMain();
-        MainType mainType = MainType.of(InputView.inputMain());
-        if (MainType.ORDER.equals(mainType)) {
-            Table table = selectTable();
-            order();
-            return true;
-        }
+        try {
+            OutputView.printMain();
+            MainType mainType = MainType.of(InputView.inputMain());
+            if (MainType.ORDER.equals(mainType)) {
+                Table table = selectTable();
+                order(table);
+                return true;
+            }
 
-        if (MainType.PAYMENT.equals(mainType)) {
-            Table table = selectTable();
-            pay();
-            return true;
-        }
+            if (MainType.PAYMENT.equals(mainType)) {
+                Table table = selectTable();
+                pay();
+                return true;
+            }
 
-        if (MainType.EXIT.equals(mainType)) {
-            OutputView.printExit();
-            return false;
+            if (MainType.EXIT.equals(mainType)) {
+                OutputView.printExit();
+                return false;
+            }
+        } catch (IllegalArgumentException e) {
+            OutputView.printError(e.getMessage());
+            return true;
         }
 
         throw new IllegalAccessException("잘못된 포스기 접근입니다.");
@@ -45,8 +50,19 @@ public class Controller {
         }
     }
 
-    private void order() {
-        OutputView.printMenus(menus);
+    private void order(Table table) {
+        Menu menu = selectMenu();
+    }
+
+    private Menu selectMenu() {
+        while (true) {
+            try {
+                OutputView.printMenus(menus);
+                return MenuRepository.findMenuByNumber(InputView.inputMenuNumber());
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
 
     private void pay() {
