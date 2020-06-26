@@ -15,19 +15,18 @@ public class Controller {
         OutputView.printMain();
         MainType mainType = MainType.of(InputView.inputMain());
         if (MainType.ORDER.equals(mainType)) {
-            OutputView.printTables(tables);
-            final int tableNumber = InputView.inputTableNumber();
-            OutputView.printMenus(menus);
+            Table table = selectTable();
             order();
             return true;
         }
 
-        if(MainType.PAYMENT.equals(mainType)) {
+        if (MainType.PAYMENT.equals(mainType)) {
+            Table table = selectTable();
             pay();
             return true;
         }
 
-        if(MainType.EXIT.equals(mainType)) {
+        if (MainType.EXIT.equals(mainType)) {
             OutputView.printExit();
             return false;
         }
@@ -35,8 +34,19 @@ public class Controller {
         throw new IllegalAccessException("잘못된 포스기 접근입니다.");
     }
 
-    private void order() {
+    private Table selectTable() {
+        while (true) {
+            try {
+                OutputView.printTables(tables);
+                return TableRepository.findTableByNumber(InputView.inputTableNumber());
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
+    }
 
+    private void order() {
+        OutputView.printMenus(menus);
     }
 
     private void pay() {
