@@ -60,6 +60,5 @@ class TableTest {
         assertThatThrownBy(() -> table.order(new Order(MenuRepository.findMenuByNumber(menu), new Count(size))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("한 메뉴의 최대 주문량은 99입니다.");
-
     }
 }

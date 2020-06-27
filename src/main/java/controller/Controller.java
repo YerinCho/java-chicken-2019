@@ -40,7 +40,6 @@ public class Controller {
     }
 
     private MainType selectMain() {
-
         OutputView.printMain();
         return MainType.of(InputView.inputMain());
     }
@@ -80,7 +79,6 @@ public class Controller {
         }
     }
 
-
     private Menu selectMenu() {
         while (true) {
             try {
@@ -94,5 +92,17 @@ public class Controller {
 
     private void pay(Table table) {
         OutputView.printOrderedMenus(table);
+        PaymentType paymentType = selectPayment(table);
+
+    }
+
+    private PaymentType selectPayment(Table table) {
+        while (true) {
+            try {
+                return PaymentType.of(InputView.inputPayment(table));
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
 }

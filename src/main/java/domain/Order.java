@@ -38,5 +38,9 @@ public class Order {
         return count.getCount();
     }
 
+    public int getTotalPrice() {
+        return menu.getPrice() * count.getCount();
+    }
+
 
 }
