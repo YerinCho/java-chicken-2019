@@ -1,4 +1,4 @@
-package domain.controller;
+package controller;
 
 import domain.*;
 import view.InputView;
@@ -13,8 +13,7 @@ public class Controller {
 
     public boolean run() throws IllegalAccessException {
         try {
-            OutputView.printMain();
-            MainType mainType = MainType.of(InputView.inputMain());
+            MainType mainType = selectMain();
             if (MainType.ORDER.equals(mainType)) {
                 Table table = selectTable();
                 order(table);
@@ -23,7 +22,7 @@ public class Controller {
 
             if (MainType.PAYMENT.equals(mainType)) {
                 Table table = selectTable();
-                pay();
+                pay(table);
                 return true;
             }
 
@@ -39,6 +38,11 @@ public class Controller {
         throw new IllegalAccessException("잘못된 포스기 접근입니다.");
     }
 
+    private MainType selectMain() {
+        OutputView.printMain();
+        return MainType.of(InputView.inputMain());
+    }
+
     private Table selectTable() {
         while (true) {
             try {
@@ -51,8 +55,29 @@ public class Controller {
     }
 
     private void order(Table table) {
-        Menu menu = selectMenu();
+        while (true) {
+            try {
+                Menu menu = selectMenu();
+                Count count = inputCount();
+                Order order = new Order(menu, count);
+                table.order(order);
+                return;
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
+
+    private Count inputCount() {
+        while (true) {
+            try {
+                return new Count(InputView.inputMenuCount());
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
+    }
+
 
     private Menu selectMenu() {
         while (true) {
@@ -65,7 +90,7 @@ public class Controller {
         }
     }
 
-    private void pay() {
+    private void pay(Table table) {
 
     }
 }

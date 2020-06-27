@@ -1,10 +1,9 @@
-import domain.controller.Controller;
+import controller.Controller;
 
 public class Application {
 
     public static void main(String[] args) throws IllegalAccessException {
-
-        Controller controller = new Controller();
+        final Controller controller = new Controller();
         while (true) {
             if (!controller.run()) {
                 return;
