@@ -11,13 +11,29 @@ public class OutputView {
     private static final String TOP_LINE = "┌ ─ ┐";
     private static final String TABLE_FORMAT = "| %s |";
     private static final String BOTTOM_LINE = "└ ─ ┘";
+    private static final String BOTTOM_ORDERED_LINE = "└ ₩ ┘";
 
     public static void printTables(final List<Table> tables) {
         System.out.println("## 테이블 목록");
         final int size = tables.size();
         printLine(TOP_LINE, size);
         printTableNumbers(tables);
-        printLine(BOTTOM_LINE, size);
+        printBottomLines(tables);
+        System.out.println();
+    }
+
+    private static void printBottomLines(List<Table> tables) {
+        for (Table table : tables) {
+            printBottomLine(table);
+        }
+    }
+
+    private static void printBottomLine(Table table) {
+        if (table.isOrderEmpty()) {
+            System.out.print(BOTTOM_LINE);
+            return;
+        }
+        System.out.print(BOTTOM_ORDERED_LINE);
     }
 
     public static void printMenus(final List<Menu> menus) {
@@ -65,6 +81,6 @@ public class OutputView {
     }
 
     public static void printTotalPrice(double price) {
-        System.out.println("## 최종 결제금액 " + price + "원");
+        System.out.println("## 최종 결제금액\n" + price + "원");
     }
 }
