@@ -2,12 +2,10 @@ import controller.Controller;
 
 public class Application {
 
-    public static void main(String[] args) throws IllegalAccessException {
+    public static void main(String[] args) {
         final Controller controller = new Controller();
         while (true) {
-            if (!controller.run()) {
-                return;
-            }
+            controller.run();
         }
     }
 }

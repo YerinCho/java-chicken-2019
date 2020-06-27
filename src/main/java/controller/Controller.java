@@ -11,32 +11,28 @@ public class Controller {
     private final List<Table> tables = TableRepository.tables();
     private final List<Menu> menus = MenuRepository.menus();
 
-    public boolean run() throws IllegalAccessException {
+    public void run() {
         try {
             MainType mainType = selectMain();
-            return runPos(mainType);
+            runPos(mainType);
         } catch (IllegalArgumentException e) {
             OutputView.printError(e.getMessage());
-            return true;
         }
     }
 
-    private Boolean runPos(MainType mainType) throws IllegalAccessException {
+    private void runPos(MainType mainType) {
         if (MainType.ORDER.equals(mainType)) {
             Table table = selectTable();
             order(table);
-            return true;
         }
         if (MainType.PAYMENT.equals(mainType)) {
             Table table = selectTable();
             pay(table);
-            return true;
         }
         if (MainType.EXIT.equals(mainType)) {
             OutputView.printExit();
-            return false;
+            System.exit(0);
         }
-        throw new IllegalAccessException("잘못된 포스기 접근입니다.");
     }
 
     private MainType selectMain() {
