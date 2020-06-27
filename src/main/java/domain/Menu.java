@@ -21,4 +21,12 @@ public class Menu {
     public boolean isMenuNumber(int number) {
         return this.number == number;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }

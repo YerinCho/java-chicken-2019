@@ -33,4 +33,10 @@ public class Order {
     private Count getCount() {
         return count;
     }
+
+    public int getCountNumber() {
+        return count.getCount();
+    }
+
+
 }

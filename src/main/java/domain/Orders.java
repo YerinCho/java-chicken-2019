@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Orders {
@@ -33,5 +34,9 @@ public class Orders {
     //Todo 이름마음에안듬
     public int getOrderedMenuSize() {
         return orders.size();
+    }
+
+    List<Order> getOrders() {
+        return Collections.unmodifiableList(orders);
     }
 }

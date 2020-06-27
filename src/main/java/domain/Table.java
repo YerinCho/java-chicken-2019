@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Table {
     private final int number;
     private final Orders orders;
@@ -27,6 +30,10 @@ public class Table {
 
     public int getOrderedMenuSize() {
         return orders.getOrderedMenuSize();
+    }
+
+    public List<Order> getOrders() {
+        return Collections.unmodifiableList(orders.getOrders());
     }
 
     @Override

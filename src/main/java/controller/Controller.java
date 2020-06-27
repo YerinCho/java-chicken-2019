@@ -14,31 +14,33 @@ public class Controller {
     public boolean run() throws IllegalAccessException {
         try {
             MainType mainType = selectMain();
-            if (MainType.ORDER.equals(mainType)) {
-                Table table = selectTable();
-                order(table);
-                return true;
-            }
-
-            if (MainType.PAYMENT.equals(mainType)) {
-                Table table = selectTable();
-                pay(table);
-                return true;
-            }
-
-            if (MainType.EXIT.equals(mainType)) {
-                OutputView.printExit();
-                return false;
-            }
+            return runPos(mainType);
         } catch (IllegalArgumentException e) {
             OutputView.printError(e.getMessage());
             return true;
         }
+    }
 
+    private Boolean runPos(MainType mainType) throws IllegalAccessException {
+        if (MainType.ORDER.equals(mainType)) {
+            Table table = selectTable();
+            order(table);
+            return true;
+        }
+        if (MainType.PAYMENT.equals(mainType)) {
+            Table table = selectTable();
+            pay(table);
+            return true;
+        }
+        if (MainType.EXIT.equals(mainType)) {
+            OutputView.printExit();
+            return false;
+        }
         throw new IllegalAccessException("잘못된 포스기 접근입니다.");
     }
 
     private MainType selectMain() {
+
         OutputView.printMain();
         return MainType.of(InputView.inputMain());
     }
@@ -91,6 +93,6 @@ public class Controller {
     }
 
     private void pay(Table table) {
-
+        OutputView.printOrderedMenus(table);
     }
 }
