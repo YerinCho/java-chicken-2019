@@ -61,4 +61,13 @@ class TableTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("한 메뉴의 최대 주문량은 99입니다.");
     }
+
+    @Test
+    @DisplayName("주문 초기화")
+    void resetOrder() {
+        order();
+        assertThat(table.isOrderEmpty()).isFalse();
+        table.resetOrder();
+        assertThat(table.isOrderEmpty()).isTrue();
+    }
 }

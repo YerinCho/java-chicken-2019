@@ -60,4 +60,13 @@ class OrdersTest {
                 .hasMessage("한 메뉴의 최대 주문량은 99입니다.");
     }
 
+    @Test
+    @DisplayName("주문초기화")
+    void reset() {
+        orders.orderMenu(new Order(MenuRepository.findMenuByNumber(1), new Count(1)));
+        assertThat(orders.isOrderEmpty()).isFalse();
+        orders.resetOrder();
+        assertThat(orders.isOrderEmpty()).isTrue();
+    }
+
 }

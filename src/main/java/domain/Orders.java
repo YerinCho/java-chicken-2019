@@ -27,11 +27,15 @@ public class Orders {
                 .noneMatch(menu -> menu.isMenuSame(order));
     }
 
+    public void resetOrder() {
+        orders.clear();
+    }
+
     public boolean isOrderEmpty() {
         return orders.isEmpty();
     }
-
     //Todo 이름마음에안듬
+
     public int getOrderedMenuSize() {
         return orders.size();
     }

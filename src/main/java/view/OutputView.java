@@ -61,4 +61,8 @@ public class OutputView {
             System.out.printf("%s\t%d\t%d\n", order.getMenu().getName(), order.getCountNumber(), order.getTotalPrice());
         }
     }
+
+    public static void printTotalPrice(double price) {
+        System.out.println("## 최종 결제금액 " + price + "원");
+    }
 }

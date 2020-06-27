@@ -93,7 +93,8 @@ public class Controller {
     private void pay(Table table) {
         OutputView.printOrderedMenus(table);
         PaymentType paymentType = selectPayment(table);
-
+        OutputView.printTotalPrice(paymentType.calculate(table.getOrders()));
+        table.resetOrder();
     }
 
     private PaymentType selectPayment(Table table) {

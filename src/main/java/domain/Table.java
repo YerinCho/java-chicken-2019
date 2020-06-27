@@ -28,6 +28,10 @@ public class Table {
         return orders.isOrderEmpty();
     }
 
+    public void resetOrder() {
+        orders.resetOrder();
+    }
+
     public int getOrderedMenuSize() {
         return orders.getOrderedMenuSize();
     }
