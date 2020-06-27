@@ -36,13 +36,27 @@ class PaymentTypeTest {
     @Test
     @DisplayName("카드결제 최종 결제금액 반환")
     void calculateCard() {
-        assertThat(PaymentType.CARD.calculate(orders.getOrders())).isEqualTo(154000);
+        assertThat(PaymentType.CARD.calculate(orders)).isEqualTo(154000);
     }
 
     @Test
     @DisplayName("현금결제 최종 결제금액 반환")
     void calculateCash() {
-        assertThat(PaymentType.CASH.calculate(orders.getOrders())).isEqualTo(154000 * 0.95);
+        assertThat(PaymentType.CASH.calculate(orders)).isEqualTo(154000 * 0.95);
+    }
+
+    @Test
+    @DisplayName("카드인경우 치킨 10마리당 만원할인")
+    void discountChickenCard() {
+        orders.orderMenu(new Order(MenuRepository.findMenuByNumber(1), new Count(1)));
+        assertThat(PaymentType.CARD.calculate(orders)).isEqualTo(170000 - 10000);
+    }
+
+    @Test
+    @DisplayName("현금인경우 치킨 10마리당 만원할인")
+    void discountChickenCash() {
+        orders.orderMenu(new Order(MenuRepository.findMenuByNumber(1), new Count(1)));
+        assertThat(PaymentType.CASH.calculate(orders)).isEqualTo(160000 * 0.95);
     }
 
 }

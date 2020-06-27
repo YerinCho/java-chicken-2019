@@ -26,6 +26,10 @@ public class Order {
         this.count = count.addCount(order.getCount());
     }
 
+    public boolean isChicken() {
+        return menu.isChicken();
+    }
+
     public Menu getMenu() {
         return menu;
     }
@@ -41,6 +45,5 @@ public class Order {
     public int getTotalPrice() {
         return menu.getPrice() * count.getCount();
     }
-
 
 }

@@ -69,4 +69,11 @@ class OrdersTest {
         assertThat(orders.isOrderEmpty()).isTrue();
     }
 
+    @Test
+    @DisplayName("치킨이 10마리 단위로 몇 세트인지 반환")
+    void chickenTenSet() {
+        orders.orderMenu(new Order(MenuRepository.findMenuByNumber(2), new Count(23)));
+        assertThat(orders.calculateChickenSet()).isEqualTo(2);
+    }
+
 }

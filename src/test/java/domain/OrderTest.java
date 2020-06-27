@@ -17,4 +17,14 @@ class OrderTest {
         assertThat(order.isMenuSame(notSameOrderMenu)).isFalse();
     }
 
+
+    @Test
+    @DisplayName("치킨인지 확인")
+    void isChicken() {
+        Order chicken = new Order(MenuRepository.findMenuByNumber(1), new Count(1));
+        Order drink = new Order(MenuRepository.findMenuByNumber(21), new Count(1));
+        assertThat(chicken.isChicken()).isTrue();
+        assertThat(drink.isChicken()).isFalse();
+    }
+
 }
